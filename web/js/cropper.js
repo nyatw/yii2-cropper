@@ -105,6 +105,31 @@
                             data['width'] = cropper.$width_input.val();
                             data['height'] = cropper.$height_input.val();
 
+                            cropper.uploader.setOptions({url: options.crop_url})
+
+                            if (cropper.uploader._queue.length) {
+                                cropper.selectedFile = cropper.uploader._queue[0];
+                            } else {
+                                cropper.uploader._queue[0] = cropper.selectedFile;
+                            }
+
+                            cropper.uploader.setData(data);
+
+                            cropper.setProgress(1);
+                            cropper.uploader.setProgressBar(cropper.$progress_bar);
+
+                            cropper.readyForSubmit = true;
+                            cropper.uploader.submit();
+                        })
+                        .on('click', '.save-photo', function () {
+                            var data = cropper.$img.data('Jcrop').tellSelect();
+                            data[yii.getCsrfParam()] = yii.getCsrfToken();
+                            data['width'] = cropper.$width_input.val();
+                            data['height'] = cropper.$height_input.val();
+                            data['prefix'] = person_id;
+
+                            cropper.uploader.setOptions({url: options.save_url})
+
                             if (cropper.uploader._queue.length) {
                                 cropper.selectedFile = cropper.uploader._queue[0];
                             } else {

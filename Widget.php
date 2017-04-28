@@ -15,12 +15,13 @@ class Widget extends InputWidget
     public $height = 200;
     public $label = '';
     public $uploadUrl;
+    public $saveUrl;
     public $noPhotoImage = '';
     public $maxSize = 2097152;
-    public $thumbnailWidth = 300;
-    public $thumbnailHeight = 300;
-    public $cropAreaWidth = 300;
-    public $cropAreaHeight = 300;
+    public $thumbnailWidth = 280;
+    public $thumbnailHeight = 280;
+    public $cropAreaWidth = 280;
+    public $cropAreaHeight = 280;
     public $extensions = 'jpeg, jpg, png, gif';
     public $onCompleteJcrop;
 
@@ -36,6 +37,12 @@ class Widget extends InputWidget
             throw new InvalidConfigException(Yii::t('cropper', 'MISSING_ATTRIBUTE', ['attribute' => 'uploadUrl']));
         } else {
             $this->uploadUrl = rtrim(Yii::getAlias($this->uploadUrl), '/') . '/';
+        }
+
+        if ($this->saveUrl === null) {
+            throw new InvalidConfigException(Yii::t('cropper', 'MISSING_ATTRIBUTE', ['attribute' => 'saveUrl']));
+        } else {
+            $this->saveUrl = rtrim(Yii::getAlias($this->saveUrl), '/') . '/';
         }
 
         if ($this->label == '') {
@@ -69,7 +76,9 @@ class Widget extends InputWidget
         }
 
         $settings = [
-            'url' => $this->uploadUrl,
+            'url' => '',
+            'save_url' => $this->saveUrl,
+            'crop_url' => $this->uploadUrl,
             'name' => $this->uploadParameter,
             'maxSize' => $this->maxSize / 1024,
             'allowedExtensions' => explode(', ', $this->extensions),

@@ -20,8 +20,11 @@ class UploadAction extends Action
     public $uploadParam = 'file';
     public $maxSize = 2097152;
     public $extensions = 'jpeg, jpg, png, gif';
-    public $width = 200;
-    public $height = 200;
+    public $width = 280;
+    public $height = 280;
+
+    public $name_prefix;
+    public $is_save = false;
 
     /**
      * @inheritdoc
@@ -38,6 +41,14 @@ class UploadAction extends Action
             throw new InvalidConfigException(Yii::t('cropper', 'MISSING_ATTRIBUTE', ['attribute' => 'path']));
         } else {
             $this->path = rtrim(Yii::getAlias($this->path), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        }
+        if ($this->name_prefix === null) {
+            throw new InvalidConfigException(Yii::t('cropper', 'MISSING_ATTRIBUTE', ['attribute' => 'name_prefix']));
+        } else {
+            $this->name_prefix = $this->name_prefix;
+        }
+        if ($this->is_save === true) {
+            $this->is_save = true;
         }
     }
 
@@ -61,7 +72,7 @@ class UploadAction extends Action
                     'error' => $model->getFirstError($this->uploadParam)
                 ];
             } else {
-                $model->{$this->uploadParam}->name = uniqid() . '.' . $model->{$this->uploadParam}->extension;
+                $model->{$this->uploadParam}->name = $this->name_prefix .'___'. uniqid() . '.' . $model->{$this->uploadParam}->extension;
                 $request = Yii::$app->request;
 
                 $width = $request->post('width', $this->width);
@@ -76,15 +87,24 @@ class UploadAction extends Action
                     new Box($width, $height)
                 );
 
-                if ($image->save($this->path . $model->{$this->uploadParam}->name)) {
-                    $result = [
-                        'filelink' => $this->url . $model->{$this->uploadParam}->name
-                    ];
+                if ($this->is_save) {
+                    if ($image->save($this->path . $model->{$this->uploadParam}->name)) {
+                        $result = [
+                            'filelink' =>  'data:image/gif;base64,'.base64_encode($image->get('jpg')),
+                            'filename' => $model->{$this->uploadParam}->name
+                        ];
+                    } else {
+                        $result = [
+                            'error' => Yii::t('cropper', 'ERROR_CAN_NOT_UPLOAD_FILE')
+                        ];
+                    }
                 } else {
                     $result = [
-                        'error' => Yii::t('cropper', 'ERROR_CAN_NOT_UPLOAD_FILE')]
-                    ;
+                        'filelink' =>  'data:image/gif;base64,'.base64_encode($image->get('jpg'))
+                    ];
                 }
+
+
             }
             Yii::$app->response->format = Response::FORMAT_JSON;
 
