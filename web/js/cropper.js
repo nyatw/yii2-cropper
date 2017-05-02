@@ -77,7 +77,10 @@
                             cropper.showError('');
 
                             cropper.$thumbnail.attr({'src': response['filelink']});
-                            cropper.$photo_field.val(response['filelink']);
+                            if ((typeof response['filename'] !== "undefined") && (typeof response['filename'] === "string")) {
+                                cropper.$photo_field.val(response['filename']);
+                                cropper.$photo_field.trigger('change');
+                            }
                             if ((typeof options.onCompleteJcrop !== "undefined") && (typeof options.onCompleteJcrop === "string")) {
                                 eval('var onCompleteJcrop = ' + options.onCompleteJcrop);
                                 onCompleteJcrop(filename, response);
@@ -104,6 +107,7 @@
                             data[yii.getCsrfParam()] = yii.getCsrfToken();
                             data['width'] = cropper.$width_input.val();
                             data['height'] = cropper.$height_input.val();
+                            data['prefix'] = person_id;
 
                             cropper.uploader.setOptions({url: options.crop_url})
 
