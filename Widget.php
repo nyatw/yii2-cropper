@@ -11,8 +11,8 @@ use Yii;
 class Widget extends InputWidget
 {
     public $uploadParameter = 'file';
-    public $width = 200;
-    public $height = 200;
+    public $width = 500;
+    public $height = 500;
     public $label = '';
     public $uploadUrl;
     public $saveUrl;
