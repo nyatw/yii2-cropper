@@ -18,10 +18,10 @@ class Widget extends InputWidget
     public $saveUrl;
     public $noPhotoImage = '';
     public $maxSize = 2097152;
-    public $thumbnailWidth = 280;
-    public $thumbnailHeight = 280;
-    public $cropAreaWidth = 280;
-    public $cropAreaHeight = 280;
+    public $thumbnailWidth = 500;
+    public $thumbnailHeight = 500;
+    public $cropAreaWidth = 500;
+    public $cropAreaHeight = 500;
     public $extensions = 'jpeg, jpg, png, gif';
     public $onCompleteJcrop;
 
