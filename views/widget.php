@@ -49,7 +49,7 @@ use yii\helpers\Html;
         <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored upload-new-photo hidden" aria-label="<?= Yii::t('cropper', 'UPLOAD_ANOTHER_PHOTO');?>">
             <i class="mdi mdi-camera" aria-hidden="true"></i> <?= Yii::t('cropper', 'UPLOAD_ANOTHER_PHOTO');?>
         </button>
-        <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored save-photo hidden">
+        <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--second save-photo hidden">
             Cохранить
         </button>
     </div>
