@@ -40,9 +40,9 @@ use yii\helpers\Html;
     ); ?>
     </div>
     <div class="cropper-buttons" style="display: inline-block">
-        <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent delete-photo" aria-label="<?= Yii::t('cropper', 'DELETE_PHOTO');?>">
+<!--         <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent delete-photo" aria-label="<?= Yii::t('cropper', 'DELETE_PHOTO');?>">
             <i class="mdi mdi-delete"></i><?= Yii::t('cropper', 'DELETE_PHOTO');?>
-        </button>
+        </button> -->
         <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored crop-photo hidden" aria-label="<?= Yii::t('cropper', 'CROP_PHOTO');?>">
             <i class="mdi mdi-content-cut" aria-hidden="true"></i> <?= Yii::t('cropper', 'CROP_PHOTO');?>
         </button>
